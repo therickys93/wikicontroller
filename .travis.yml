@@ -8,3 +8,13 @@ after_success:
 - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
   docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"; docker push therickys93/wikicontroller;
   fi
+- sh set_tags.sh
+deploy:
+  provider: releases
+  file_glob: "true"
+  skip_cleanup: true
+  api_key:
+    secure: 0p5gHfKLP9vwtguFn91HdRygSBfU924f8wtOlh/sI+D3FHFJGw1Zx2V4Cv7sQFZnrDkLKG8WN1or9epGWr5ROc/KjbiMHrXbkI1gLqUn7F6UuEKZkcwrlRVjDL/9jwEl3H009782lf0hy1BOA9UBNWptdPamETYuiH0hwui/1PhMbwrY6wgrInH3BttEHZjcJxWu+LIOe/Wk2PaZDGP3pqxHAck9EkDqCNThFWqk4cL5LcEqGgHymIpGMvmX8FYG+M4XcrWJ9SzLE28RzxHlQri6EUwsOoY3lkkJvHF/dUeck9vyLwYKPtRkAkRgNxV+GD9q8Uf/VS/RDHFTe0z71M7+Hfq9KUNARbzL4zFeWOIgQ7CEkcG351sRhG5QhENR7rL4pqa1q0RhjNXS3awZAYcBPbtjVbJDtbvegIam29SZOM6o/t01f+hGx2Hhbm3wuA9RQJ7UcbyNG9XEjbcPfm//w9yNGjVSXIrc1Q9h3SqbMXBn5kGiJzJ1H+QOy0lFMp5hye2d+JG1/Nx1eKicBrit1XV9wXKOfnwrl/TsTo0f8p/zNDTjco2NYoPmvZHRAl7Z0O3FHhLX6BxDGxWVuxYvKMOilIv0lSwKXhPFn18N6EUcc+EPTSOAN+fQOM9KhMn7sKrmbmfdsP9OgwU3KguCU5x3yfNWi/3LwQOou5s=
+  on:
+    repo: therickys93/wikicontroller
+    branch: master

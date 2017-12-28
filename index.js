@@ -1,10 +1,10 @@
-const express = require("express")
-const app = express()
-const redis = require("redis")
-const client = redis.createClient({host: "wikiredis"})
-
-const port = 3000
-const key = "arduino"
+const express      = require("express")
+const app          = express()
+const redis        = require("redis")
+const host         = process.env.HOST || "localhost"
+const client       = redis.createClient({host: host})
+const port         = 3000
+const key          = "arduino"
 const defaultValue = "00"
 
 String.prototype.replaceAt=function(index, replacement) {

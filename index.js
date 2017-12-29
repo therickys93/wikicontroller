@@ -63,6 +63,19 @@ app.get('/off/:led', function(req, res){
     })
 })
 
+app.get('/status', function(req, res){
+    console.log("GET /status")
+    client.get(key, function(err, reply){
+        if(!reply){
+            console.log("status/key not found")
+            res.send('{"success": false}')
+        } else {
+            console.log("status: " + reply.toString())
+            res.send('{"success": true, "status":"' + reply.toString() + '"}')
+        }
+    })
+})
+
 app.listen(port, function(){
     console.log('Example app listening on port ' + port)
 })

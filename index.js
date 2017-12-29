@@ -4,7 +4,6 @@ const redis        = require("redis")
 const host         = process.env.HOST || "localhost"
 const client       = redis.createClient({host: host})
 const port         = 3000
-const key          = "arduino"
 const defaultValue = "00"
 
 String.prototype.replaceAt=function(index, replacement) {
@@ -16,16 +15,16 @@ app.get('/', function(req, res){
     res.send('{"success": true}')
 })
 
-app.get('/reset', function(req, res){
+app.get('/reset/:key', function(req, res){
     console.log("GET /reset")
-    client.set(key, defaultValue)
+    client.set(req.params.key, defaultValue)
     client.bgsave()
     res.send('{"success": true}')
 })
 
-app.get('/on/:led', function(req, res){
+app.get('/on/:key/:led', function(req, res){
     console.log("GET /on/:led")
-    client.get(key, function(err, reply){
+    client.get(req.params.key, function(err, reply){
         if(!reply){
             console.log("value is null or empty")
             res.send('{"success": false}')
@@ -36,16 +35,16 @@ app.get('/on/:led', function(req, res){
             console.log("value is ok")
             var value = reply.toString();
             value = value.replaceAt(req.params.led, "1")
-            client.set(key, value)
+            client.set(req.params.key, value)
             client.bgsave()
             res.send('{"success": true}')
         }
     })
 })
 
-app.get('/off/:led', function(req, res){
+app.get('/off/:key/:led', function(req, res){
     console.log("GET /off/:led")
-    client.get(key, function(err, reply){
+    client.get(req.params.key, function(err, reply){
         if(!reply){
             console.log("value is null or empty")
             res.send('{"success": false}')
@@ -56,16 +55,16 @@ app.get('/off/:led', function(req, res){
             console.log("value is ok")
             var value = reply.toString();
             value = value.replaceAt(req.params.led, "0")
-            client.set(key, value)
+            client.set(req.params.key, value)
             client.bgsave()
             res.send('{"success": true}')
         }
     })
 })
 
-app.get('/status', function(req, res){
+app.get('/status/:key', function(req, res){
     console.log("GET /status")
-    client.get(key, function(err, reply){
+    client.get(req.params.key, function(err, reply){
         if(!reply){
             console.log("status/key not found")
             res.send('{"success": false}')
@@ -77,5 +76,5 @@ app.get('/status', function(req, res){
 })
 
 app.listen(port, function(){
-    console.log('Example app listening on port ' + port)
+    console.log('Wiki controller listening on port ' + port)
 })

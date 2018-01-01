@@ -7,7 +7,7 @@ const client       = redis.createClient({host: host})
 const port         = 3000
 
 // valore default per il reset
-const defaultValue = "00"
+const defaultValue = "00000000"
 
 // funzione per sostituire una parte di una stringa con un altra
 String.prototype.replaceAt = function(index, replacement) {

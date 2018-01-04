@@ -13,7 +13,7 @@ services:
     environment:
       - "HOST=wikiredis"
     ports:
-      - "80:3000"
+      - "3000:3000"
     networks:
       - backbone
 

@@ -9,6 +9,7 @@ script:
 - npm install
 - npm install -g forever
 - forever start index.js
+- forever list
 - curl -v -4 http://127.0.0.1:3000
 - docker build -t therickys93/wikicontroller .
 after_success:

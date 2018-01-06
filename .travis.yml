@@ -4,6 +4,7 @@ node_js:
 sudo: required
 services:
 - docker
+- redis-server
 script:
 - npm install
 - node index.js

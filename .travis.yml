@@ -7,7 +7,7 @@ services:
 - redis-server
 script:
 - npm install
-- node index.js
+- node index.js &
 - curl http://localhost:3000
 - docker build -t therickys93/wikicontroller .
 after_success:

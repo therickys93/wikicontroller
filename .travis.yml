@@ -11,7 +11,8 @@ script:
 - forever start index.js
 - forever list
 - forever logs index.js
-- curl -v -4 http://127.0.0.1:3000
+- sleep 5
+- curl -4 http://127.0.0.1:3000
 - docker build -t therickys93/wikicontroller .
 after_success:
 - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then

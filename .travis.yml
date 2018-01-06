@@ -8,7 +8,7 @@ services:
 script:
 - npm install
 - node index.js &
-- curl -v http://localhost:3000
+- curl -v http://127.0.0.1:3000
 - docker build -t therickys93/wikicontroller .
 after_success:
 - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then

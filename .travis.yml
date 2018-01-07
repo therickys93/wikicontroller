@@ -1,8 +1,18 @@
-language: generic
+language: node_js
+node_js:
+  - "4"
 sudo: required
 services:
 - docker
+- redis-server
 script:
+- npm install
+- npm install -g forever
+- forever start index.js
+- forever list
+- forever logs index.js
+- sleep 5
+- bash tests.sh
 - docker build -t therickys93/wikicontroller .
 after_success:
 - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then

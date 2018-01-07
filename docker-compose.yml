@@ -1,0 +1,22 @@
+# used only for testing in development
+
+version: '2'
+
+services:
+  wikiredis:
+    image: wikiredis
+    networks:
+      - backbone
+
+  wikicontroller:
+    image: wikicontroller
+    environment:
+      - "HOST=wikiredis"
+    ports:
+      - "3000:3000"
+    networks:
+      - backbone
+
+networks:
+  backbone:
+    driver: bridge

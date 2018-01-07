@@ -1,0 +1,23 @@
+{
+  "name": "wikicontroller",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/therickys93/wikicontroller.git"
+  },
+  "author": "Riccardo Crippa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/therickys93/wikicontroller/issues"
+  },
+  "homepage": "https://github.com/therickys93/wikicontroller#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "redis": "^2.8.0"
+  }
+}

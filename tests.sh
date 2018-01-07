@@ -1,33 +1,44 @@
 #!/bin/sh
 
-setUp() {
-	sleep 1
-}
-
 testHomeAndStatus() {
-	RESPONSE_1=`curl -4 -s http://127.0.0.1:3000/`
-	assertEquals "${RESPONSE_1}" "{\"success\": true}"
+	echo "testHomeAndStatus()"
+	echo "curl http://127.0.0.1:3000"
+	curl -4 -s http://127.0.0.1:3000/
+	echo ""
+	echo ""
 }
 
 testReset() {
-	RESPONSE_2=`curl -4 -s http://127.0.0.1:3000/reset/arduino`
-	assertEquals "${RESPONSE_2}" "{\"success\": true}"
+	echo "testReset()"
+	echo "curl http://127.0.0.1:3000/reset/arduino"
+	curl -4 -s http://127.0.0.1:3000/reset/arduino
+	echo ""
+	echo ""
 }
 
 testResetAndStatusKey() {
-	RESET=`curl -4 -s http://127.0.0.1:3000/reset/arduino`
-	assertEquals "${RESET}" "{\"success\": true}"
-	STATUS=`curl -4 -s http://127.0.0.1:3000/status/arduino`
-	assertEquals "${STATUS}" "{\"success\": true, \"status\":\"00\"}"
+	echo "testResetAndStatusKey()"
+	echo "curl http://127.0.0.1:3000/reset/arduino"
+	curl -4 -s http://127.0.0.1:3000/reset/arduino
+	echo "curl http://127.0.0.1:3000/status/arduino"
+	curl -4 -s http://127.0.0.1:3000/status/arduino
+	echo ""
+	echo ""
 }
 
 testOn(){
-	RESET=`curl -4 -s http://127.0.0.1:3000/reset/arduino`
-	assertEquals "${RESET}" "{\"success\": true}"
-	ON=`curl -4 -s http://127.0.0.1:3000/on/arduino/0`
-	assertEquals "${ON}" "{\"success\": true}"
-	STATUS=`curl -4 -s http://127.0.0.1:3000/status/arduino`
-	assertEquals "${STATUS}" "{\"success\": true, \"status\":\"10\"}"
+	echo "testOn"
+	echo "curl http://127.0.0.1:3000/reset/arduino"
+	curl -4 -s http://127.0.0.1:3000/reset/arduino
+	echo "curl http://127.0.0.1:3000/on/arduino/0"
+	curl -4 -s http://127.0.0.1:3000/on/arduino/0
+	echo "curl http://127.0.0.1:3000/status/arduino"
+	curl -4 -s http://127.0.0.1:3000/status/arduino
+	echo ""
+	echo ""
 }
 
-. shunit2-2.1.6/src/shunit2
+testHomeAndStatus
+testReset
+testResetAndStatusKey
+testOn

@@ -21,6 +21,13 @@ testResetAndStatusKey() {
 	assertEquals "${STATUS}" "{\"success\": true, \"status\":\"00\"}"
 }
 
-
+testOn(){
+	RESET=`curl -4 -s http://127.0.0.1:3000/reset/arduino`
+	assertEquals "${RESET}" "{\"success\": true}"
+	ON=`curl -4 -s http://127.0.0.1:3000/on/arduino/0`
+	assertEquals "${ON}" "{\"success\": true}"
+	STATUS=`curl -4 -s http://127.0.0.1:3000/status/arduino`
+	assertEquals "${STATUS}" "{\"success\": true, \"status\":\"10\"}"
+}
 
 . shunit2-2.1.6/src/shunit2

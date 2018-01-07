@@ -1,5 +1,9 @@
 #!/bin/sh
 
+setUp() {
+	sleep 1
+}
+
 testHomeAndStatus() {
 	RESPONSE_1=`curl -4 -s http://127.0.0.1:3000/`
 	assertEquals "${RESPONSE_1}" "{\"success\": true}"

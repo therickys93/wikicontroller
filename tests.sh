@@ -64,7 +64,7 @@ testOff() {
 	echo ""
 	sleep 1
 	echo "curl http://127.0.0.1:3000/off/arduino/0"
-	curl -4 http://127.0.0.1:3000/on/arduino/0
+	curl -4 http://127.0.0.1:3000/off/arduino/0
 	echo ""
 	sleep 1
 	echo "curl http://127.0.0.1:3000/status/arduino"

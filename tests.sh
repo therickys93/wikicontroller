@@ -48,7 +48,33 @@ testOn() {
 	echo ""
 }
 
+testOff() {
+	sleep 1
+	echo "testOff()"
+	echo "curl http://127.0.0.1:3000/reset/arduino"
+	curl -4 http://127.0.0.1:3000/reset/arduino
+	echo ""
+	sleep 1
+	echo "curl http://127.0.0.1:3000/on/arduino/0"
+	curl -4 http://127.0.0.1:3000/on/arduino/0
+	echo ""
+	sleep 1
+	echo "curl http://127.0.0.1:3000/status/arduino"
+	curl -4 http://127.0.0.1:3000/status/arduino
+	echo ""
+	sleep 1
+	echo "curl http://127.0.0.1:3000/off/arduino/0"
+	curl -4 http://127.0.0.1:3000/on/arduino/0
+	echo ""
+	sleep 1
+	echo "curl http://127.0.0.1:3000/status/arduino"
+	curl -4 http://127.0.0.1:3000/status/arduino
+	echo ""
+	echo ""
+}
+
 testHomeAndStatus
 testReset
 testResetAndStatusKey
 testOn
+testOff

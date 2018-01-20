@@ -54,7 +54,7 @@ app.get('/on/:key/:led', function(req, res){
             var value = reply.toString();
             // sostituisce qualsiasi valore ci sia
             // e lo setta a '1'
-            value = value.replaceAt(req.params.led, "1")
+            value = value.replaceAt(Number(req.params.led), "1")
             // setta il valore nel database
             client.set(req.params.key, value)
             // salva il valore nel file
@@ -87,7 +87,7 @@ app.get('/off/:key/:led', function(req, res){
             var value = reply.toString();
             // sostituisce qualsiasi valore ci sia
             // e lo setta a '0'
-            value = value.replaceAt(req.params.led, "0")
+            value = value.replaceAt(Number(req.params.led), "0")
             // setta il valore nel database
             client.set(req.params.key, value)
             // salva il valore nel file

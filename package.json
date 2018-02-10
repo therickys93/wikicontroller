@@ -1,6 +1,6 @@
 {
   "name": "wikicontroller",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/therickys93/wikicontroller#readme",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "redis": "^2.8.0"
   }

@@ -4,12 +4,12 @@ version: '2'
 
 services:
   wikiredis:
-    image: wikiredis
+    image: therickys93/wikiredis
     networks:
       - backbone
 
   wikicontroller:
-    image: wikicontroller
+    build: .
     environment:
       - "HOST=wikiredis"
     ports:

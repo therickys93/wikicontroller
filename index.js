@@ -2,12 +2,18 @@
 const express      = require("express")
 const app          = express()
 const redis        = require("redis")
+const fs           = require('fs')
+const bodyParser   = require('body-parser')
 const host         = process.env.HOST || "localhost"
 const client       = redis.createClient({host: host})
 const port         = 3000
 
 // valore default per il reset
 const defaultValue = "00000000"
+const dbFile       = 'db/wiki.json'
+
+app.use(bodyParser.urlencoded({ extended: false}))
+app.use(bodyParser.json())
 
 // funzione per sostituire una parte di una stringa con un altra
 String.prototype.replaceAt = function(index, replacement) {
@@ -115,6 +121,31 @@ app.get('/status/:key', function(req, res){
         }
     })
 })
+
+// GET /download -> ritorna contenuto del file db/wiki.json
+app.get('/download', function(req, res){
+    console.log("GET /download")
+    fs.readFile(dbFile, 'utf8', function(err, data){
+        if(err){
+            res.send()
+        } else {
+            res.send(data);
+        }
+    })
+})
+
+// POST /upload -> cambia il contenuto del file db/wiki.json
+app.post('/upload', function(req, res){
+    console.log("POST /upload")
+    fs.writeFile(dbFile, JSON.stringify(req.body), function(err){
+        if(err){
+            res.send('{"success": false}')
+        } else {
+            res.send('{"success": true}')
+        }
+    })
+})
+
 
 // socket si mette in ascolto 
 // alla porta 3000

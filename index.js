@@ -42,6 +42,9 @@ app.get('/reset/:key', function(req, res){
 app.get('/on/:key/:led', function(req, res){
     console.log("GET /on/:key/:led")
     // prende la chiave dal database
+    // ora il led viene viene inviato dalle api >= 1
+    // ma in questo caso riporto tutto a 0
+    var led_number = req.params.led - 1;
     client.get(req.params.key, function(err, reply){
         // se non esiste risponde che il comando 
         // è fallito
@@ -51,7 +54,7 @@ app.get('/on/:key/:led', function(req, res){
         // se la lunghezza del valore salvato è minore
         // del valore passato risponde che il comando
         // è fallito
-        } else if(reply.length <= req.params.led){
+        } else if(reply.length <= led_number){
             console.log("value length is less than the led")
             res.send('{"success": false}')
         // altrimenti il comando può essere eseguito
@@ -60,7 +63,7 @@ app.get('/on/:key/:led', function(req, res){
             var value = reply.toString();
             // sostituisce qualsiasi valore ci sia
             // e lo setta a '1'
-            value = value.replaceAt(Number(req.params.led), "1")
+            value = value.replaceAt(Number(led_number), "1")
             // setta il valore nel database
             client.set(req.params.key, value)
             // salva il valore nel file
@@ -75,6 +78,9 @@ app.get('/on/:key/:led', function(req, res){
 app.get('/off/:key/:led', function(req, res){
     console.log("GET /off/:key/:led")
     // prende la chiave dal database
+    // ora il led viene viene inviato dalle api >= 1
+    // ma in questo caso riporto tutto a 0
+    var led_number = req.params.led - 1;
     client.get(req.params.key, function(err, reply){
         // se non esiste risponde che il comando 
         // è fallito
@@ -84,7 +90,7 @@ app.get('/off/:key/:led', function(req, res){
         // se la lunghezza del valore salvato è minore
         // del valore passato risponde che il comando
         // è fallito
-        } else if(reply.length <= req.params.led){
+        } else if(reply.length <= led_number){
             console.log("value length is less than the led")
             res.send('{"success": false}')
         // altrimenti il comando può essere eseguito
@@ -93,7 +99,7 @@ app.get('/off/:key/:led', function(req, res){
             var value = reply.toString();
             // sostituisce qualsiasi valore ci sia
             // e lo setta a '0'
-            value = value.replaceAt(Number(req.params.led), "0")
+            value = value.replaceAt(Number(led_number), "0")
             // setta il valore nel database
             client.set(req.params.key, value)
             // salva il valore nel file

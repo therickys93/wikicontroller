@@ -109,6 +109,45 @@ app.get('/off/:key/:led', function(req, res){
     })
 })
 
+// GET /openclose/:key/:led -> setta a 2 il valore
+// del led con la chiave nel database,
+// arduino leggerà questo valore come una simulazione
+// di un pulsante
+app.get('/openclose/:key/:led', function(req, res){
+    console.log("GET /openclose/:key/:led")
+    // prende la chiave dal database
+    // ora il led viene viene inviato dalle api >= 1
+    // ma in questo caso riporto tutto a 0
+    var led_number = req.params.led - 1;
+    client.get(req.params.key, function(err, reply){
+        // se non esiste risponde che il comando 
+        // è fallito
+        if(!reply){
+            console.log("value is null or empty")
+            res.send('{"success": false}')
+        // se la lunghezza del valore salvato è minore
+        // del valore passato risponde che il comando
+        // è fallito
+        } else if(reply.length <= led_number){
+            console.log("value length is less than the led")
+            res.send('{"success": false}')
+        // altrimenti il comando può essere eseguito
+        } else {
+            console.log("value is ok")
+            var value = reply.toString();
+            // sostituisce qualsiasi valore ci sia
+            // e lo setta a '2'
+            value = value.replaceAt(Number(led_number), "2")
+            // setta il valore nel database
+            client.set(req.params.key, value)
+            // salva il valore nel file
+            client.bgsave()
+            res.send('{"success": true}')
+        }
+    })
+})
+
+
 // GET /status/:key -> ritorna lo stato della
 // chiave nel database
 app.get('/status/:key', function(req, res){

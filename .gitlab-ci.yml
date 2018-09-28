@@ -1,0 +1,61 @@
+image: node:alpine
+
+variables:
+  HOST: "redis"
+
+services:
+  - redis:latest
+
+stages:
+  - build
+  - test
+  - static_code
+  - deploy
+
+cache:
+  paths:
+    - node_modules/
+
+building:
+  stage: build
+  script:
+    - apk update
+    - apk add curl
+    - npm install
+  artifacts:
+    paths:
+      - node_modules/
+
+testing:
+  stage: test
+  script:
+    - apk update
+    - apk add curl
+    - npm install -g forever
+    - forever start index.js
+    - forever list
+    - forever logs index.js
+    - sleep 5
+    - npm test
+
+check_code:
+  stage: static_code
+  script:
+    - npm install -g jshint
+    - jshint index.js
+
+deploy:
+  stage: deploy
+  image: ubuntu:latest
+  only:
+    - master
+  before_script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    - ssh pi@controller.wiki.home "cd '/var/www/app/wikicontroller'; sudo supervisorctl stop wikicontroller; git pull; npm install; sudo supervisorctl start wikicontroller"

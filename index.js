@@ -6,7 +6,7 @@ const fs           = require('fs')
 const bodyParser   = require('body-parser')
 const host         = process.env.HOST || "localhost"
 const client       = redis.createClient({host: host})
-const port         = 3000
+const port         = process.env.PORT || 3000
 
 // valore default per il reset
 const defaultValue = "00000000"

@@ -4,9 +4,11 @@ const app          = express()
 const redis        = require("redis")
 const fs           = require('fs')
 const bodyParser   = require('body-parser')
+var qr = require('qr-image');
 const host         = process.env.HOST || "localhost"
 const client       = redis.createClient({host: host})
 const port         = process.env.PORT || 3000
+const qrcodetext   = process.env.WIKICONTROLLER_QR_CODE || "http://controller.wiki.home"
 
 // valore default per il reset
 const defaultValue = "00000000"
@@ -191,6 +193,12 @@ app.post('/upload', function(req, res){
     })
 })
 
+app.get('/qrcode', function(req, res){
+    console.log("GET /qrcode")
+    var code = qr.image(qrcodetext, { type: 'svg' });
+    res.type('svg');
+    code.pipe(res);      
+})
 
 // socket si mette in ascolto 
 // alla porta 3000

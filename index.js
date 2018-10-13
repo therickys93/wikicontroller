@@ -4,7 +4,7 @@ const app          = express()
 const redis        = require("redis")
 const fs           = require('fs')
 const bodyParser   = require('body-parser')
-var qr = require('qr-image');
+var qr             = require('qr-image');
 const host         = process.env.HOST || "localhost"
 const client       = redis.createClient({host: host})
 const port         = process.env.PORT || 3000
@@ -46,7 +46,8 @@ app.get('/on/:key/:led', function(req, res){
     // prende la chiave dal database
     // ora il led viene viene inviato dalle api >= 1
     // ma in questo caso riporto tutto a 0
-    var led_number = req.params.led - 1;
+    var led_number = req.params.led;
+    console.log("led: " + led_number)
     client.get(req.params.key, function(err, reply){
         // se non esiste risponde che il comando 
         // è fallito
@@ -82,7 +83,7 @@ app.get('/off/:key/:led', function(req, res){
     // prende la chiave dal database
     // ora il led viene viene inviato dalle api >= 1
     // ma in questo caso riporto tutto a 0
-    var led_number = req.params.led - 1;
+    var led_number = req.params.led;
     client.get(req.params.key, function(err, reply){
         // se non esiste risponde che il comando 
         // è fallito
@@ -120,7 +121,7 @@ app.get('/openclose/:key/:led', function(req, res){
     // prende la chiave dal database
     // ora il led viene viene inviato dalle api >= 1
     // ma in questo caso riporto tutto a 0
-    var led_number = req.params.led - 1;
+    var led_number = req.params.led;
     client.get(req.params.key, function(err, reply){
         // se non esiste risponde che il comando 
         // è fallito
@@ -204,4 +205,5 @@ app.get('/qrcode', function(req, res){
 // alla porta 3000
 app.listen(port, function(){
     console.log('Wiki controller listening on port ' + port)
+    console.log('Testo QR code ' + qrcodetext)
 })

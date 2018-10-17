@@ -32,6 +32,7 @@ app.get('/', function(req, res){
 // della chiave del database
 app.get('/reset/:key', function(req, res){
     console.log("GET /reset/:key")
+    console.log("GET /reset/" + req.params.key)
     // setta il valore nel database
     client.set(req.params.key, defaultValue)
     // salva il valore nel file
@@ -43,11 +44,11 @@ app.get('/reset/:key', function(req, res){
 // del led con la chiave nel database
 app.get('/on/:key/:led', function(req, res){
     console.log("GET /on/:key/:led")
+    console.log("GET /on/" + req.params.key + "/" + req.params.led)
     // prende la chiave dal database
     // ora il led viene viene inviato dalle api >= 1
     // ma in questo caso riporto tutto a 0
     var led_number = req.params.led;
-    console.log("led: " + led_number)
     client.get(req.params.key, function(err, reply){
         // se non esiste risponde che il comando 
         // è fallito
@@ -80,6 +81,7 @@ app.get('/on/:key/:led', function(req, res){
 // del led con la chiave nel database
 app.get('/off/:key/:led', function(req, res){
     console.log("GET /off/:key/:led")
+    console.log("GET /off/" + req.params.key + "/" + req.params.led)
     // prende la chiave dal database
     // ora il led viene viene inviato dalle api >= 1
     // ma in questo caso riporto tutto a 0
@@ -118,6 +120,7 @@ app.get('/off/:key/:led', function(req, res){
 // di un pulsante
 app.get('/openclose/:key/:led', function(req, res){
     console.log("GET /openclose/:key/:led")
+    console.log("GET /openclose/" + req.params.key + "/" + req.params.led)
     // prende la chiave dal database
     // ora il led viene viene inviato dalle api >= 1
     // ma in questo caso riporto tutto a 0
@@ -155,6 +158,7 @@ app.get('/openclose/:key/:led', function(req, res){
 // chiave nel database
 app.get('/status/:key', function(req, res){
     console.log("GET /status/:key")
+    console.log("GET /status/" + req.params.key)
     // prende la chiave dal database
     client.get(req.params.key, function(err, reply){
         // se non esiste risponde che il comando 
@@ -177,6 +181,7 @@ app.get('/download', function(req, res){
         if(err){
             res.send()
         } else {
+            console.log(data)
             res.send(data);
         }
     })
@@ -185,6 +190,7 @@ app.get('/download', function(req, res){
 // POST /upload -> cambia il contenuto del file db/wiki.json
 app.post('/upload', function(req, res){
     console.log("POST /upload")
+    console.log(req.body)
     fs.writeFile(dbFile, JSON.stringify(req.body), function(err){
         if(err){
             res.send('{"success": false}')

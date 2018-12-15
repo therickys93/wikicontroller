@@ -3,17 +3,31 @@
 version: '2'
 
 services:
-  wikiredis:
+  redis:
     image: therickys93/wikiredis
     networks:
       - backbone
 
-  wikicontroller:
+  controller:
     build: .
     environment:
-      - "HOST=wikiredis"
+      - "HOST=redis"
     ports:
       - "3000:3000"
+    networks:
+      - backbone
+
+  data:
+    image: therickys93/wikidata
+    environment:
+      - REDIS=redis
+    networks: 
+      - backbone
+
+  proxy:
+    image: therickys93/wikiproxy
+    ports:
+      - "80:80"
     networks:
       - backbone
 

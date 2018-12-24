@@ -36,7 +36,7 @@ app.get('/reset/:key', function(req, res){
     // setta il valore nel database
     client.set(req.params.key, defaultValue)
     // salva il valore nel file
-    client.bgsave()
+    client.save()
     res.send('{"success": true}')
 })
 
@@ -71,7 +71,7 @@ app.get('/on/:key/:led', function(req, res){
             // setta il valore nel database
             client.set(req.params.key, value)
             // salva il valore nel file
-            client.bgsave()
+            client.save()
             res.send('{"success": true}')
         }
     })
@@ -108,7 +108,7 @@ app.get('/off/:key/:led', function(req, res){
             // setta il valore nel database
             client.set(req.params.key, value)
             // salva il valore nel file
-            client.bgsave()
+            client.save()
             res.send('{"success": true}')
         }
     })
@@ -147,7 +147,7 @@ app.get('/openclose/:key/:led', function(req, res){
             // setta il valore nel database
             client.set(req.params.key, value)
             // salva il valore nel file
-            client.bgsave()
+            client.save()
             res.send('{"success": true}')
         }
     })

@@ -17,13 +17,6 @@ services:
     networks:
       - backbone
 
-  data:
-    image: therickys93/wikidata
-    environment:
-      - REDIS=redis
-    networks: 
-      - backbone
-
   proxy:
     image: therickys93/wikiproxy
     ports:

@@ -28,6 +28,23 @@ app.get('/', function(req, res){
     res.send('{"success": true}')
 })
 
+// GET /init/:key -> inizializza chiave solo se non esiste
+app.get('/init/:key', function(req, res){
+    console.log("GET /init/:key")
+    console.log("GET /init/" + req.params.key)
+
+    client.get(req.params.key, function(err, reply){
+        if(!reply){
+            client.set(req.params.key, defaultValue)
+            client.save()
+            res.send('{"success": true}')
+        } else {
+            // do nothing
+            res.send('{"success": true}')
+        }
+    })
+})
+
 // GET /reset/:key -> risetta il valore 
 // della chiave del database
 app.get('/reset/:key', function(req, res){

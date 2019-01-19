@@ -17,6 +17,22 @@ services:
     networks:
       - backbone
 
+  data:
+    image: therickys93/wikidata
+    environment:
+        # - FTP_SERVER=<your_server>
+        # - FTP_USERNAME=<your_username>
+        # - FTP_PASSWORD=<your_password>
+        - REDIS=redis
+        # - POSTGRES=postgres
+        # - POSTGRES_USER=postgres
+        # - POSTGRES_PASSWORD=example
+        # - POSTGRES_DB=wiki
+        # - DROPBOX=<any_string>
+        # - DROPBOX_ACCESS_TOKEN=<your_access_token>
+    networks: 
+        - backbone
+
   proxy:
     image: therickys93/wikiproxy
     ports:

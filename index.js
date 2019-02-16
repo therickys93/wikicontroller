@@ -191,6 +191,24 @@ app.get('/status/:key', function(req, res){
     })
 })
 
+app.get('/status/:key/:position', function(req, res){
+    console.log("GET /status/:key/:position")
+    console.log("GET /status/" + req.params.key + "/" + req.params.position)
+    var position = req.params.position
+    client.get(req.params.key, function(err, reply){
+        // se non esiste risponde che il comando 
+        // è fallito
+        if(!reply){
+            console.log("status/key not found")
+            res.send('{"success": false}')
+        } else {
+            // altrimenti il comando può essere eseguito
+            console.log("status: " + reply.toString()[position])
+            res.send('{"success": true, "status":"' + reply.toString()[position] + '"}')
+        }
+    })
+})
+
 // GET /download -> ritorna contenuto del file db/wiki.json
 app.get('/download', function(req, res){
     console.log("GET /download")

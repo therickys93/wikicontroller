@@ -37,7 +37,7 @@ app.get('/init/:key', function(req, res){
     client.get(req.params.key, function(err, reply){
         if(!reply){
             client.set(req.params.key, defaultValue)
-            client.set(req.params.key + "_temp", sensorsDefaultValue)
+            client.set(req.params.key + "_a0", sensorsDefaultValue)
             client.set(req.params.key + "_a1", sensorsDefaultValue)
             client.set(req.params.key + "_a2", sensorsDefaultValue)
             client.set(req.params.key + "_a3", sensorsDefaultValue)

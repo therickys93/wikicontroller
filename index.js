@@ -12,6 +12,7 @@ const qrcodetext   = process.env.WIKICONTROLLER_QR_CODE || "http://controller.wi
 
 // valore default per il reset
 const defaultValue = "00000000"
+const sensorsDefaultValue = "0"
 const dbFile       = 'db/wiki.json'
 
 app.use(bodyParser.urlencoded({ extended: false}))
@@ -36,6 +37,12 @@ app.get('/init/:key', function(req, res){
     client.get(req.params.key, function(err, reply){
         if(!reply){
             client.set(req.params.key, defaultValue)
+            client.set(req.params.key + "_temp", sensorsDefaultValue)
+            client.set(req.params.key + "_a1", sensorsDefaultValue)
+            client.set(req.params.key + "_a2", sensorsDefaultValue)
+            client.set(req.params.key + "_a3", sensorsDefaultValue)
+            client.set(req.params.key + "_a4", sensorsDefaultValue)
+            client.set(req.params.key + "_a5", sensorsDefaultValue)
             client.save()
             res.send('{"success": true}')
         } else {

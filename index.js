@@ -198,6 +198,22 @@ app.get('/status/:key', function(req, res){
     })
 })
 
+// GET /sensors/:key/:position
+app.get('/sensors/:key/:position', function(req, res){
+    console.log("GET /sensors/:key")
+    console.log("GET /sensors/" + req.params.key + "/" + req.params.position)
+    var real_key = req.params.key + "_a" + req.params.position
+    client.get(real_key, function(err, reply){
+        if(!reply){
+            console.log("sensors/key not found")
+            res.send('{"success": false}')
+        } else {
+            console.log("status: " + reply.toString())
+            res.send('{"success": true, "status":"' + reply.toString() + '"}')
+        }
+    })
+})
+
 app.get('/status/:key/:position', function(req, res){
     console.log("GET /status/:key/:position")
     console.log("GET /status/" + req.params.key + "/" + req.params.position)

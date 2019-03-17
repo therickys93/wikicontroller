@@ -12,6 +12,7 @@ const qrcodetext   = process.env.WIKICONTROLLER_QR_CODE || "http://controller.wi
 
 // valore default per il reset
 const defaultValue = "00000000"
+const sensorsDefaultValue = "0"
 const dbFile       = 'db/wiki.json'
 
 app.use(bodyParser.urlencoded({ extended: false}))
@@ -36,6 +37,12 @@ app.get('/init/:key', function(req, res){
     client.get(req.params.key, function(err, reply){
         if(!reply){
             client.set(req.params.key, defaultValue)
+            client.set(req.params.key + "_a0", sensorsDefaultValue)
+            client.set(req.params.key + "_a1", sensorsDefaultValue)
+            client.set(req.params.key + "_a2", sensorsDefaultValue)
+            client.set(req.params.key + "_a3", sensorsDefaultValue)
+            client.set(req.params.key + "_a4", sensorsDefaultValue)
+            client.set(req.params.key + "_a5", sensorsDefaultValue)
             client.save()
             res.send('{"success": true}')
         } else {
@@ -185,6 +192,22 @@ app.get('/status/:key', function(req, res){
             res.send('{"success": false}')
         } else {
             // altrimenti il comando può essere eseguito
+            console.log("status: " + reply.toString())
+            res.send('{"success": true, "status":"' + reply.toString() + '"}')
+        }
+    })
+})
+
+// GET /sensors/:key/:position
+app.get('/sensors/:key/:position', function(req, res){
+    console.log("GET /sensors/:key")
+    console.log("GET /sensors/" + req.params.key + "/" + req.params.position)
+    var real_key = req.params.key + "_a" + req.params.position
+    client.get(real_key, function(err, reply){
+        if(!reply){
+            console.log("sensors/key not found")
+            res.send('{"success": false}')
+        } else {
             console.log("status: " + reply.toString())
             res.send('{"success": true, "status":"' + reply.toString() + '"}')
         }

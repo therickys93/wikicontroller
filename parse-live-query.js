@@ -6,7 +6,7 @@ var masterKey = process.env.MASTER_KEY || 'masterKey'
 
 var client = new Parse.LiveQueryClient({
     applicationId: applicationId,
-    serverURL: serverURL,
+    serverURL: 'wss://' + serverURL,
     masterKey: masterKey
 });
 client.open();

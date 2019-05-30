@@ -22,7 +22,8 @@
     "express": "^4.16.2",
     "parse": "^2.4.0",
     "qr-image": "^3.2.0",
-    "redis": "^2.8.0"
+    "redis": "^2.8.0",
+    "request": "^2.88.0"
   },
   "devDependencies": {
     "jshint": "^2.9.6"

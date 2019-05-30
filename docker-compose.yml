@@ -15,8 +15,6 @@ services:
       - "SERVER_URL=<server_no_protocol>"
       - "APPLICATION_ID=<appID>"
       - "MASTER_KEY=<appSecret>"
-    ports:
-      - "3000:3000"
     networks:
       - backbone
 

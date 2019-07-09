@@ -269,7 +269,7 @@ app.get('/qrcode', function(req, res){
 app.get('/version', function(req, res){
     console.log("GET /version")
     var info = getRepoInfo()
-    res.send(info.lastTag)
+    res.send(info.tag)
 })
 
 // socket si mette in ascolto 

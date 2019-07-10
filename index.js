@@ -5,7 +5,6 @@ const redis        = require("redis")
 const fs           = require('fs')
 const bodyParser   = require('body-parser')
 var qr             = require('qr-image');
-var getRepoInfo    = require('git-repo-info');
 const host         = process.env.HOST || "localhost"
 const client       = redis.createClient({host: host})
 const port         = process.env.PORT || 3000
@@ -268,8 +267,7 @@ app.get('/qrcode', function(req, res){
 
 app.get('/version', function(req, res){
     console.log("GET /version")
-    var info = getRepoInfo()
-    res.send(info.tag)
+    res.send('1.8')
 })
 
 // socket si mette in ascolto 
